@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>새로운 문자 메시지가 있습니다.(27)</title>
+	 <style>
+/*프리텐다드*/
+  @font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-ExtraBold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraBold.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-SemiBold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-Light';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-ExtraLight';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;}
+  @font-face {
+    font-family: 'Pretendard-Thin';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;}
+
+html{margin: 0;font-size: 1.2rem;line-height: 1.5rem;
+      font-family: 'Pretendard-Regular';word-break: keep-all;}
+
+/*맨처음화면*/
+  .msg {display: inline-block;position: absolute;padding: 25px;
+    left: 50%;top: 460px;transform: translateX(-50%);
+    filter: drop-shadow(2px 2px 5px lightgray);cursor: pointer;
+      background: #E8E8E8;height: auto;width: 230px;
+      margin: 0 auto 10px;border-radius: 25px;z-index: 0;
+      animation: msg-mv 0.5s alternate infinite;}
+      @keyframes msg-mv{to {top: 400px;}}
+  .msg:after {content:"";position: absolute;
+      width: 40px;height: 46px;bottom: 0%;left: -10px;
+      z-index: -1;background-image: url(img/tail.svg);}
+  	.bg-fst{position: absolute;z-index: -2;top: 0;left: 0;
+  		background: white;width: 100vw;height: 100vh;}
+
+/*문자창(스팸/진짜)*/
+  #spam,#true{position: absolute;left: 0px;top: 0px;z-index: 0;
+    filter: drop-shadow(1px 1px 4px skyblue);display: inline-block;
+      padding: 25px; width:220px; height:auto;
+      margin: 0 auto 10px;border-radius: 25px; background-color: #E8E8E8;}
+  #spam:after,#true:after {content: "";position: absolute;
+    width: 40px;height: 46px;bottom: 0%;left: -10px;
+    z-index: -1;background-image: url(img/tail.svg);}
+
+/*입력창*/
+    #ans1,#ans2,#ans3{display: none;
+      position: absolute;left: 50%;bottom: 50px;text-align: center;
+      transform: translateX(-50%);z-index: -3;}
+    input{border-radius: 30px; height: 35px;width: 300px;
+      font-size: 1rem;border: none;}
+    .ans-box{padding: 8px;background: #0089FE;border-radius: 50px;
+      box-shadow: 2px 2px 4px skyblue;}
+    #bu1,#bu2,#bu3{border-radius: 50px; border: none;background: #5CB4FF;
+      color: white;height: 35px;width: 35px;
+      font-size: 1.2rem;text-align: center;}
+    #bu1:hover,#bu2:hover,#bu3:hover{background: #D7D7D7;color: #0089FE;}
+
+/*배경사람이미지*/
+      .w-layer {position: absolute;top: 0;z-index: -10;
+        transform: translateX(-50%);left: 50%;
+      height: 1100px;width: auto;}
+      .w-layer2 {position: absolute;top: 0;z-index: -10;
+        transform: translateX(-50%);left: 50%;
+      height: 1100px;width: auto;}
+      .w-2 {position: absolute;height: 67px;width: auto;
+        transition: transform 0.1s ease-out;z-index: -10;
+        top: 44%;left: 50%;}
+
+/*입력-정답팝업*/
+    .po-cor {display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 50px; text-align: center;
+      background: #E8E8E8; color: black; border-radius: 25px; 
+      font-size: 1.2rem;z-index: 100;box-shadow: 1px 1px 4px skyblue}
+    .popup-overlay {display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 99;
+      align-items: center;}
+    #ne1,#ne2{border: none;border-radius: 30px;background: #0089FE;
+      color: white;text-align: center;display: inline;
+      font-size: 1rem;padding: 10px;}
+    #ne1:hover,#ne2:hover{background: #D7D7D7;color: black;}
+
+    #clMsg{position:fixed; top:50%; left:50%; display: none;
+      text-align: center;font-family: 'Pretendard-Medium';
+      transform:translate(-50%, -50%);font-size:1.2rem; 
+      line-height:1.6rem;}
+    .bd{font-family: 'Pretendard-Black'; display: inline-block;
+      font-size: 2rem;line-height:3rem;}
+    .blue-t{font-family: 'Pretendard-ExtraBold';display: inline;
+      color: #0089FE;text-shadow: 2px 2px white;}
+  </style>
+</head>
+<body>
+  <img src="img/w1.png" class="w-layer2">
+  <div class="w-layer">
+  <img src="img/w2.png" class="w-2">
+  <img src="img/w3.png" class="w-layer">
+  </div>
+
+<div id="clMsg">
+  <span class="bd">CLEAR!</span><br><br>스팸 문자를 수신한 경우, 휴대폰의 신고 기능을 이용하거나 <br>한국인터넷진흥원 불법대응센터 📞118(유료), <br>불법스팸대응센터(https://spam.kisa.or.kr/spam/main.do)에 신고하세요.
+</div>
+  <div id="ans1">
+    <div class="ans-box">
+    <input type="number" id="inputNumber" placeholder="인증번호">
+    <button id="bu1">►</button>
+    </div>
+  </div>
+  <div id="ans2">
+    <div class="ans-box">
+    <input type="date" id="inputDate" placeholder="예약일">
+    <button id="bu2">►</button>
+    </div>
+  </div>
+  <div id="ans3">
+    <div class="ans-box">
+    <input type="email" id="inputEmail" placeholder="이메일">
+    <button id="bu3">►</button>
+    </div>
+  </div>
+  <div class="popup-overlay" id="popupOverlay0"></div>
+  <div class="po-cor" id="popupCorrect0"><span class="blue-t">인증번호를 찾아보세요.</span>
+  </div>
+  <div class="popup-overlay" id="popupOverlay1"></div>
+  <div class="po-cor" id="popupCorrect1">정상적으로 인증되었습니다.<br><br>
+    <button id="ne1">다음으로</button>
+  </div>
+  <div class="popup-overlay" id="popupOverlay11"></div>
+  <div class="po-cor" id="popupCorrect11"><span class="blue-t">치과 예약일을 찾아보세요.</span>
+  </div>
+    <div class="popup-overlay" id="popupOverlay2"></div>
+  <div class="po-cor" id="popupCorrect2">예약일이 확인되었습니다.<br><br>
+    <button id="ne2">다음으로</button>
+  </div>
+  <div class="popup-overlay" id="popupOverlay22"></div>
+  <div class="po-cor" id="popupCorrect22"><span class="blue-t">인쇄소 이메일 주소를 찾아보세요.</span>
+  </div>
+    <div class="popup-overlay" id="popupOverlay3"></div>
+    <div class="po-cor" id="popupCorrect3">이메일 주소가 확인되었습니다.</div>
+
+	<div id="fst">
+  	<div class="msg">[Web발신]<br>亼팸문ｽﾄ 전체 삭スㅔ<br>문의 08012341234</div>
+  	<div class="bg-fst"></div>
+	</div>
+<script>
+let spamInterval; // spamInterval을 전역 변수로 선언
+let trueInterval; // trueInterval을 전역 변수로 선언
+
+// 초기화 및 단계 진행
+document.getElementById("ne1").addEventListener("click", () => {
+  closePopup(1); // 이전 팝업 닫기
+  showPopup(11); // 2단계 안내 팝업 표시
+  spamInterval && clearInterval(spamInterval); // 이전 interval 제거
+  spamInterval = setInterval(createSpam, 800); // 간격 조정
+  setTimeout(() => {
+    closePopup(11); // 2초 후 팝업 닫기
+    showNextStep(2); // 다음 단계로
+  }, 1500);
+});
+
+document.getElementById("ne2").addEventListener("click", () => {
+  closePopup(2); // 이전 팝업 닫기
+  showPopup(22); // 3단계 안내 팝업 표시
+  spamInterval && clearInterval(spamInterval); // 이전 interval 제거
+  spamInterval = setInterval(createSpam, 400); // 간격 조정
+  setTimeout(() => {
+    closePopup(22); // 2초 후 팝업 닫기
+    showNextStep(3); // 다음 단계로
+  }, 1500);
+});
+
+// #ans1 인증번호 확인
+document.getElementById("bu1").onclick = function () {
+  const userInput = Number(document.getElementById("inputNumber").value); // 입력값 가져오기
+  const correctNumber = 391664;
+
+  if (userInput === correctNumber) {
+    showCorrectPopup(1);
+  } else {
+    alert("인증번호가 일치하지 않습니다.");
+  }
+};
+
+// #ans2 날짜 확인
+bu2.onclick = function () {
+  const userDate = document.getElementById("inputDate").value;
+  const correctDate = "2025-01-09";
+
+  if (userDate === correctDate) {
+    showCorrectPopup(2);
+  } else {
+    alert("날짜가 일치하지 않습니다.");
+  }
+}
+
+// #ans3 이메일 확인
+bu3.onclick = function() {
+  const userEmail = document.getElementById("inputEmail").value;
+  const correctEmail = "hamham@gmail.com";
+
+  if (userEmail === correctEmail) {
+    showCorrectPopup(3);
+
+    setTimeout(() => {
+      closePopup(3);
+      clearScreen(); // CLEAR 화면 표시
+    }, 1500);
+  } else {
+    alert("이메일 주소가 일치하지 않습니다.");
+  }
+}
+
+function clearScreen() {
+  if (spamInterval) clearInterval(spamInterval); // spamInterval 멈춤
+  if (trueInterval) clearInterval(trueInterval); // trueInterval 멈춤
+
+  // 화면 초기화 대신 모든 자식 요소 제거
+  [...document.body.children].forEach(child => {
+    if (child.id !== "clMsg") child.remove(); // #clMsg 제외하고 모두 제거
+  });
+
+  document.body.style.backgroundColor = "white"; // 배경 흰색 설정
+  const clMsg = document.getElementById("clMsg");
+  clMsg.style.display = "block"; // #clMsg 표시
+}
+
+// 단계별 팝업 표시
+function showCorrectPopup(step) {
+  document.getElementById(`popupOverlay${step}`).style.display = "block";
+  document.getElementById(`popupCorrect${step}`).style.display = "block";
+}
+
+function showPopup(step) {
+  document.getElementById(`popupOverlay${step}`).style.display = "block";
+  document.getElementById(`popupCorrect${step}`).style.display = "block";
+}
+
+// 단계별 팝업 닫기
+function closePopup(step) {
+  document.getElementById(`popupOverlay${step}`).style.display = "none";
+  document.getElementById(`popupCorrect${step}`).style.display = "none";
+}
+
+// 다음 단계 표시
+function showNextStep(nextStep) {
+  document.getElementById(`ans${nextStep}`).style.display = "block";
+  document.getElementById(`ans${nextStep - 1}`).style.display = "none";
+}
+
+// spamInterval에서 생성되는 함수
+function createSpam() {
+  const spamMessages = [
+    `[Web발신]<br>[국 민 건 강 보 험]<br>검 진(진 단 서) 조 회 하 기 <a href="spam2.html" target='_blank'>Vo.la/8hFDd3**</a>`,
+    `[CJ대한택배] 택 배배송 불 가 *주*소 불 완 전 함 즉 시 변 경부 탁 드 립 니다 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[국제발신] 주문한 항목은 알라딘 익스프레스에서 배송되었습니다. <br>배송 주소를 확인하십시오 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[올리브영] 크리스마스 선물 도착 ★ <br>전 상품 무료 배송! 할인쿠폰 지급 완료! 즉시 사용가능!<br>확인> <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[Web발신]<br>[네 이 버] 로그인 시도<br>조 회 하 기<a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `서연님 크리스마스 선물로 모바일 상품권을 보내드립니다. 확인 바랍니다 ^o^~★ <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `우체국화,물 반송처리중 바로확 인부탁드 립니다 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[Web발신] 국민건강보험 조회 보기 <br><a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[국제발신]<br>♡저희 결혼합니다♡<br>12.15(일요일) 오시기 힘드시겠지만 마음으로 축하해주세요 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[국제발신] 당첨을 축하드립니다<br>*무료지원<br>*하한가 복구<br>*전문가 배정<br><a href="spam1.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[국제발신] 자기야, 12월 25일 한국행 비행기를 예약 했는데 그때 시간 괜찮으세요? +L̇IṆE̮: <a href="spam3.html" target='_blank'>hfdd3</a>`,
+    `[국제발신]<br>저 한국에 여행갈건데,한국에 대해잘몰라요.친구가 당신이한국에서 도와준다는데맞나요? L̇IṆE̮: <a href="spam3.html" target='_blank'>hfdd3</a> 추가해서회신부탁드려요`,
+    `[국제발신] 저는 다음달에 한국에 갑니다. <br>급한 일이 있어서 당신을 찾는데 연락이 안 됩니다. L̇IṆE̮: <a href="spam3.html" target='_blank'>hfdd3</a>`,
+    `[국외발신]<br>[우리카드]<br>11/30 [0897] 카드발급 완료<br>타인요청 우려시 즉시 문의요망 상담센터 <a href="spam2.html" target='_blank'>007771392561719</a>`,
+    `[국제발신]<br>해외직구 KRW 975,OOO원 결제완료<br>인증코드: 9182<br>배송조회 문의: <a href="spam2.html" target='_blank'>007771392561719</a>`,
+    `[Web 국제발신]<br>해외인증 [USD] $877 결제완료 <br>본인 아닐 경우 한국 소비자원으로 문의 <a href="spam2.html" target='_blank'>007771392561719</a>`,
+    `쿠팡맨입니다. 주소지 오류 배송물품 지연중입니다 당담자 링크 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `교통법규 위반으로 안내 [청구 명령] 발부되었습니다 조회 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[국제발신]<br>요즘 왜 연락 안 해?”다음주에 한국에 당신을 찾으러 갈게요,시간 있어요?”내 새 L̇IṆE̮: <a href="spam3.html" target='_blank'>hfdd3</a>`,
+    `[국외발신]<br>저녁에 연애해영 제사진 보려면 L̇IṆE̮: <a href="spam3.html" target='_blank'>hfdd3</a>`,
+    `[국외발신]<br>전 하영이라고 해요~ 현재 솔로예요ㅋㅋ 제 사진 보고 싶지 않으세요? L̇IṆE̮에서 <a href="spam3.html" target='_blank'>hfdd3</a> 로 찾아봐주세요^^`,
+    `[Web발신]<br>90대어르신도 가능! 공공기관도 인정 유명인다수<br>20분으로 평생행복하게사세요 <a href="spam1.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[국제발신]<br>내 사랑  저는 휴대폰을 잃어버렸습니다. 내 새 L̇IṆE̮ ID 추가: <a href="spam3.html" target='_blank'>hfdd3</a>`,
+    `[국제발신]<br>Gmail이 오랫동안 인증되지 않았습니다. <br><a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a> 인증, 그렇지 않으면 계정이 로그`,
+    `► 청약가능한 공모주가 있습니다 앤젤로보딕스 선착순배정 사전신청 <a href="spam1.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `롯데8*1*카드 11/29<br>해외쇼핑 일시불 967,9OO원(결제승인)<br>구매오류시 (<a href="spam2.html" target='_blank'>007771392561719</a>)즉시 연락바랍니다.`,
+    `<부고>부친께서 오늘 별세하셔서 알려드립니다 식장 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`,
+    `[대한통운]고객님의 구매상품 16-18시 배송될 예정입니다.<br>내용확인 <a href="spam2.html" target='_blank'>Vo.la/9pFDd1**</a>`
+  ];
+
+  const randomMessage = spamMessages[Math.floor(Math.random() * spamMessages.length)];
+  const randomX = Math.random() * (window.innerWidth - 100);
+  const randomY = Math.random() * (window.innerHeight * 0.8 - 50);
+
+  const spamElement = document.createElement('div');
+  spamElement.id = 'spam';
+  spamElement.innerHTML = randomMessage;
+  spamElement.style.left = `${randomX}px`;
+  spamElement.style.top = `${randomY}px`;
+
+  document.body.appendChild(spamElement);
+
+  setTimeout(() => spamElement.remove(), 7000);
+}
+
+// 초기화 - 첫 번째 단계 시작
+
+fst.onclick = function () {
+  fst.style.display = "none"; // 초기 화면 숨기기
+  ans1.style.display = "block"; // 첫 번째 단계 표시
+  showPopup(0); // 초기 팝업 표시
+  setTimeout(() => closePopup(0), 2000); // 2초 후 팝업 닫기
+  spamInterval = setInterval(createSpam, 1500); // 초기 간격
+
+  const trueMessages = [
+    `[NICE ID]인증번호 [391664]를 입력해주세요. 사칭/전화사기에 주의하세요.`,
+    `서연님 예약일은 2025년 1월 9일입니다. 잊지마시고 내원해주세요^^.<br>-박치과의원-`,
+    `안녕하세요 횜버거인쇄소입니다. hamham@gmail.com으로 파일 보내주시면 확인 후 인쇄 도와드리겠습니다.`,
+  ];
+
+  // trueInterval 전역 변수에 초기화
+  trueInterval = setInterval(() => {
+    const randMessage = trueMessages[Math.floor(Math.random() * trueMessages.length)];
+    const randomX = Math.random() * (window.innerWidth - 100); // 화면 너비 범위 내
+    const randomY = Math.random() * (window.innerHeight * 0.8 - 50); // 화면 높이의 80%까지만
+
+    const trueElement = document.createElement("div");
+    trueElement.id = "true";
+    trueElement.innerHTML = randMessage;
+    trueElement.style.left = `${randomX}px`;
+    trueElement.style.top = `${randomY}px`;
+
+    document.body.appendChild(trueElement);
+
+    setTimeout(() => {
+      trueElement.remove();
+    }, 7000);
+  }, 4000); // trueInterval 생성
+};
+
+const w2 = document.querySelector('.w-2');
+const wLayer = document.querySelector('.w-layer');
+
+// 움직임 범위 설정
+const movementRange = 30; // 최대 이동 범위
+
+window.addEventListener('mousemove', (e) => {
+  // .w-layer의 위치와 크기 가져오기
+  const layerRect = wLayer.getBoundingClientRect();
+  const layerWidth = layerRect.width;
+  const layerHeight = layerRect.height;
+
+  // 화면 크기 기준으로 마우스 위치 비율 계산
+  const mouseX = e.clientX; // 화면 내 마우스 X 좌표
+  const mouseY = e.clientY; // 화면 내 마우스 Y 좌표
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+
+  const xRatio = mouseX / windowWidth; // 0 ~ 1
+  const yRatio = mouseY / windowHeight; // 0 ~ 1
+
+  // 움직임 계산 (layerRect를 기준으로 상대적으로 이동)
+  const xMove = (xRatio - 0.5) * movementRange; // -15px ~ +15px
+  const yMove = (yRatio - 0.5) * movementRange;
+
+  // w2를 이동시킬 때 .w-layer 안에서 위치 설정
+  w2.style.transform = `translate(${xMove - 190}px, ${yMove}px)`;
+});
+</script>
+</body>
+</html>
